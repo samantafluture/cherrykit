@@ -1,0 +1,20 @@
+{
+  "name": "cherrykit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Rapid Validation Kit — validate product ideas in under an hour",
+  "scripts": {
+    "api": "tsx src/api/index.ts",
+    "create": "tsx src/actions/create.ts",
+    "list": "tsx src/actions/list.ts",
+    "update": "tsx src/actions/update.ts",
+    "verdict": "tsx src/actions/verdict.ts",
+    "record-metrics": "tsx src/actions/record-metrics.ts",
+    "scorecard": "tsx src/actions/scorecard.ts",
+    "compare": "tsx src/actions/compare.ts",
+    "ad-copy": "tsx src/actions/ad-copy.ts",
+    "deploy": "tsx src/actions/deploy.ts"
+  },
+  "packageManager": "pnpm@10.27.0"
+}
