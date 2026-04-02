@@ -8,3 +8,4 @@ templates/landing/node_modules/
 templates/landing/dist/
 .DS_Store
 .claude/private/
+.env

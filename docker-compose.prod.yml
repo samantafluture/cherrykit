@@ -1,0 +1,63 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: api
+    container_name: cherrykit-api
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - cherrykit_data:/app/data
+    networks:
+      - infra-net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3848/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # One-shot: initialize/migrate the database
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: api
+    container_name: cherrykit-migrate
+    env_file: .env
+    volumes:
+      - cherrykit_data:/app/data
+    networks:
+      - infra-net
+    command: ["pnpm", "exec", "tsx", "src/db/index.ts"]
+    profiles:
+      - tools
+
+  # One-shot: deploy a landing page (copies built assets to nginx volume)
+  deploy-page:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: api
+    container_name: cherrykit-deploy-page
+    env_file: .env
+    volumes:
+      - cherrykit_data:/app/data
+      - cherrykit_web:/output
+    networks:
+      - infra-net
+    entrypoint: ["sh", "-c", "cp -r /app/dist/*/. /output/ 2>/dev/null || echo 'No pages to deploy yet'"]
+    profiles:
+      - tools
+
+volumes:
+  cherrykit_data:
+    external: true
+    name: cherrykit_data
+  cherrykit_web:
+    external: true
+    name: cherrykit_web
+
+networks:
+  infra-net:
+    external: true
