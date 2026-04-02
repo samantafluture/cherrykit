@@ -49,21 +49,8 @@
   - [ ] SKILL.md at project root
   - [ ] CLAUDE.md updates
   - [ ] End-to-end smoke test
-- [/] VPS deployment infrastructure `[M]` #devops ⏳ in-progress
-  - [x] Dockerfile.prod ✅ 2026-04-02
-  - [x] docker-compose.prod.yml ✅ 2026-04-02
-  - [x] nginx/cherrykit.conf ✅ 2026-04-02
-  - [x] scripts/deploy.sh ✅ 2026-04-02
-  - [x] .github/workflows/deploy.yml ✅ 2026-04-02
-  - [x] .env.production.example ✅ 2026-04-02
-  - [ ] 👤 manual DNS: A record validate.samantafluture.com → 187.124.67.117
-  - [ ] SSL cert for validate.samantafluture.com
-  - [ ] Create Docker volumes (cherrykit_data, cherrykit_web)
-  - [ ] Clone repo on VPS
-  - [ ] Copy nginx config to infra, update infra compose
-  - [ ] Create .env on VPS
-  - [ ] First deploy
-  - [ ] Add VPS_SSH_KEY to GitHub secrets
+- [ ] VPS first deploy — run after code is built `[S]` #devops
+  > Blocked until Phase 6 (Fastify API) is done — no API container to deploy yet
 
 ### P1 — Should do this week
 
@@ -76,12 +63,16 @@
 ## Completed (recent)
 - [x] CherryTasks setup — tasks.md, private/, CLAUDE.md task section `[S]` #setup ✅ 2026-04-02
 - [x] Git init + connect to GitHub remote `[S]` #setup ✅ 2026-04-02
+- [x] VPS deployment infrastructure `[M]` #devops ✅ 2026-04-02
+  - [x] Dockerfile.prod, docker-compose.prod.yml, deploy.sh, deploy.yml
+  - [x] DNS A record, SSL cert, Docker volumes, repo clone, nginx config, infra compose, .env, VPS_SSH_KEY
 
 ## Notes
 - Repo: https://github.com/samantafluture/cherrykit
 - See docs/ for PRD, TDD, and backlog
 - Build order: Phase 0 → 1 → 2 → 4 → 3 → 5 → 6 → 7 → 8
-- VPS: validate.samantafluture.com on Hostinger KVM1 (187.124.67.117)
+- VPS: validate.samantafluture.com on Hostinger KVM1
 - Docker volumes: cherrykit_data (SQLite), cherrykit_web (static pages)
 > Agent: Created initial task list from implementation plan (2026-04-02)
 > Agent: Updated with VPS deployment subtasks and completed items (2026-04-02)
+> Agent: VPS setup complete — DNS, SSL, volumes, repo clone, nginx, infra compose, .env, VPS_SSH_KEY all done. First deploy blocked on code being built. (2026-04-02)
