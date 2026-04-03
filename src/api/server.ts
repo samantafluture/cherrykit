@@ -21,6 +21,7 @@ export async function buildServer() {
   });
 
   fastify.get("/health", async () => ({ status: "ok" }));
+  fastify.get("/api/health", async () => ({ status: "ok" }));
 
   await fastify.register(signupRoutes, { prefix: "/api/validate" });
   await fastify.register(surveyRoutes, { prefix: "/api/validate" });
