@@ -9,6 +9,8 @@
 _All P0 tasks complete!_
 
 ### P1 — Should do this week
+
+### P2 — Nice to have
 - [ ] Create UI/UX design skill for landing pages `[L]` #frontend #skill
   > A Claude Code skill that generates professional, modern landing page designs tailored to each experiment's target audience. Must use plan mode and a high-effort model (Opus). The skill should:
   > - **Interview the user** first — ask about brand personality, competitor examples, tone, audience demographics, price point, visual references, before generating anything
@@ -18,10 +20,7 @@ _All P0 tasks complete!_
   > - **Specify icons and imagery** — icon style (outline/filled/duotone), placeholder image descriptions for hero/mockup, visual metaphors that connect with the audience
   > - **Output Astro components** — update the actual template files with the generated design (CSS custom properties, component props, animation keyframes)
   > - The skill must feel like hiring a senior UI/UX designer + copywriter combo, not a generic template swap
-
-### P2 — Nice to have
-- [ ] Write blog post about Notion + Claude Code connection for Substack `[M]` #content
-- [ ] Create Substack publishing skill `[M]` #devops
+- [x] Create Substack publishing skill `[M]` #devops 2026-04-03
 
 ## Blocked
 
