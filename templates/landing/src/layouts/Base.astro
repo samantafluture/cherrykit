@@ -1,0 +1,76 @@
+---
+interface Props {
+  title: string;
+  accentColor?: string;
+}
+
+const { title, accentColor = "#6366f1" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style define:vars={{ accentColor }}>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-family: "Inter", system-ui, sans-serif;
+        color: #1a1a2e;
+        background: #fafafa;
+      }
+      body {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+      }
+      a {
+        color: var(--accentColor);
+      }
+      .accent {
+        color: var(--accentColor);
+      }
+      .btn-primary {
+        background: var(--accentColor);
+        color: #fff;
+        border: none;
+        padding: 0.875rem 2rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+        width: 100%;
+      }
+      .btn-primary:hover {
+        opacity: 0.9;
+      }
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      section {
+        margin-top: 3rem;
+      }
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

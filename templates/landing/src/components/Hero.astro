@@ -1,0 +1,36 @@
+---
+interface Props {
+  headline: string;
+  subheadline: string;
+  oneLiner: string;
+  productType: string;
+}
+
+const { headline, subheadline, oneLiner, productType } = Astro.props;
+
+const ctaMap: Record<string, string> = {
+  app: "Get Early Access",
+  kdp: "Notify Me at Launch",
+  notion: "Get It Free",
+  etsy: "Join the Waitlist",
+  saas: "Join the Beta",
+};
+const ctaText = ctaMap[productType] || "Get Early Access";
+---
+
+<header style="text-align: center; padding: 2rem 0;">
+  <p style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.6; margin-bottom: 0.75rem;">
+    {oneLiner}
+  </p>
+  <h1 style="font-size: 2.25rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem;">
+    {headline}
+  </h1>
+  <p style="font-size: 1.125rem; opacity: 0.7; line-height: 1.6;">
+    {subheadline}
+  </p>
+  <div style="margin-top: 1.5rem;">
+    <a href="#signup" class="btn-primary" style="display: inline-block; text-decoration: none; width: auto;">
+      {ctaText}
+    </a>
+  </div>
+</header>

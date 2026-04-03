@@ -1,0 +1,26 @@
+{
+  "id": "PLACEHOLDER",
+  "name": "Example Product",
+  "slug": "example",
+  "product_type": "app",
+  "one_liner": "A better way to do the thing",
+  "headline": "Finally, a tool that gets it right",
+  "subheadline": "Stop wrestling with broken workflows. Start shipping what matters.",
+  "pain_points": [
+    "You spend hours on manual tasks that should be automated",
+    "Existing tools are too complex or too expensive",
+    "You keep losing track of what matters most"
+  ],
+  "benefits": [
+    "Save 5+ hours every week on busywork",
+    "One simple dashboard for everything",
+    "Free during early access"
+  ],
+  "accent_color": "#6366f1",
+  "survey_questions": [
+    { "key": "current_solution", "text": "What do you currently use to solve this?" },
+    { "key": "frustration", "text": "What frustrates you most about your current approach?" },
+    { "key": "willingness_to_pay", "text": "Would you pay $X/month for a better solution?", "type": "select", "options": ["Yes", "Maybe", "No"] }
+  ],
+  "api_url": "https://validate.samantafluture.com/api/validate/PLACEHOLDER"
+}

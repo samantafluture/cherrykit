@@ -34,7 +34,8 @@ docs/             # PRD, TDD, backlog
 - All action scripts output JSON to stdout, errors to stderr
 - JSON fields (pain_points, benefits, survey_questions) stored as TEXT in SQLite, parsed at tracker boundary
 - Page generator writes experiment.json; deploy script runs astro build
-- Database auto-initializes on first access via `initDb()`
+- Database auto-initializes on first access via `getDb()` (runs migrations on first call)
+- SKILL.md at project root defines the Claude Code skill interface
 
 ## Task Management
 

@@ -1,0 +1,20 @@
+---
+interface Props {
+  painPoints: string[];
+}
+
+const { painPoints } = Astro.props;
+---
+
+{painPoints.length > 0 && (
+  <section>
+    <h2>Sound familiar?</h2>
+    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+      {painPoints.map((point) => (
+        <li style="background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.95rem; line-height: 1.5;">
+          {point}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

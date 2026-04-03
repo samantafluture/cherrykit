@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+import Survey from "../components/Survey.astro";
+import experiment from "../../experiment.json";
+---
+
+<Base title={`Thanks — ${experiment.name}`} accentColor={experiment.accent_color}>
+  <header style="text-align: center; padding: 2rem 0;">
+    <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem;">
+      You're in!
+    </h1>
+    <p style="font-size: 1.1rem; opacity: 0.7; line-height: 1.6;">
+      Thanks for signing up for {experiment.name}. We'll keep you posted.
+    </p>
+  </header>
+
+  <Survey
+    apiUrl={experiment.api_url}
+    experimentId={experiment.id}
+    questions={experiment.survey_questions}
+  />
+</Base>

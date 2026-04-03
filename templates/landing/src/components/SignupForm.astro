@@ -1,0 +1,86 @@
+---
+interface Props {
+  apiUrl: string;
+  experimentId: string;
+  productType: string;
+}
+
+const { apiUrl, experimentId, productType } = Astro.props;
+
+const ctaMap: Record<string, string> = {
+  app: "Get Early Access",
+  kdp: "Notify Me at Launch",
+  notion: "Get It Free",
+  etsy: "Join the Waitlist",
+  saas: "Join the Beta",
+};
+const ctaText = ctaMap[productType] || "Get Early Access";
+---
+
+<section id="signup">
+  <div style="background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 2rem; text-align: center;">
+    <h2 style="margin-bottom: 0.5rem;">Ready?</h2>
+    <p style="opacity: 0.6; margin-bottom: 1.5rem; font-size: 0.9rem;">
+      Drop your email and be the first to know.
+    </p>
+    <form id="signup-form" style="display: flex; flex-direction: column; gap: 0.75rem;">
+      <input
+        type="email"
+        name="email"
+        placeholder="you@example.com"
+        required
+        style="padding: 0.875rem 1rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; outline: none;"
+      />
+      <button type="submit" class="btn-primary">
+        {ctaText}
+      </button>
+    </form>
+    <p id="signup-msg" style="margin-top: 0.75rem; font-size: 0.85rem; display: none;"></p>
+  </div>
+</section>
+
+<script define:vars={{ apiUrl, experimentId }}>
+  const form = document.getElementById("signup-form");
+  const msg = document.getElementById("signup-msg");
+
+  // Parse UTM params from URL
+  const params = new URLSearchParams(window.location.search);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = form.querySelector('input[name="email"]').value;
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+
+    try {
+      const res = await fetch(`${apiUrl}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          utm_source: params.get("utm_source") || undefined,
+          utm_medium: params.get("utm_medium") || undefined,
+          utm_campaign: params.get("utm_campaign") || undefined,
+          utm_content: params.get("utm_content") || undefined,
+        }),
+      });
+
+      if (res.ok) {
+        window.location.href = "/thanks";
+      } else {
+        msg.textContent = "Something went wrong. Please try again.";
+        msg.style.display = "block";
+        msg.style.color = "#ef4444";
+        btn.disabled = false;
+        btn.textContent = "Try Again";
+      }
+    } catch {
+      msg.textContent = "Connection error. Please try again.";
+      msg.style.display = "block";
+      msg.style.color = "#ef4444";
+      btn.disabled = false;
+      btn.textContent = "Try Again";
+    }
+  });
+</script>

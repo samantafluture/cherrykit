@@ -1,0 +1,104 @@
+---
+interface SurveyQuestion {
+  key: string;
+  text: string;
+  type?: "text" | "select";
+  options?: string[];
+}
+
+interface Props {
+  apiUrl: string;
+  experimentId: string;
+  questions: SurveyQuestion[];
+}
+
+const { apiUrl, experimentId, questions } = Astro.props;
+---
+
+{questions.length > 0 && (
+  <section>
+    <div style="background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 2rem;">
+      <h2 style="text-align: center; margin-bottom: 0.5rem;">Quick questions</h2>
+      <p style="text-align: center; opacity: 0.6; margin-bottom: 1.5rem; font-size: 0.9rem;">
+        Help us build what you actually need (takes 30 seconds).
+      </p>
+      <form id="survey-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        {questions.map((q) => (
+          <div>
+            <label style="display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">
+              {q.text}
+            </label>
+            {q.type === "select" && q.options ? (
+              <select
+                name={q.key}
+                required
+                style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.9rem; background: #fff;"
+              >
+                <option value="">Choose one...</option>
+                {q.options.map((opt) => (
+                  <option value={opt}>{opt}</option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type="text"
+                name={q.key}
+                required
+                placeholder="Type your answer..."
+                style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.9rem;"
+              />
+            )}
+          </div>
+        ))}
+        <button type="submit" class="btn-primary">Submit</button>
+      </form>
+      <p id="survey-msg" style="margin-top: 0.75rem; font-size: 0.85rem; text-align: center; display: none;"></p>
+    </div>
+  </section>
+)}
+
+<script define:vars={{ apiUrl, experimentId }}>
+  const form = document.getElementById("survey-form");
+  const msg = document.getElementById("survey-msg");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+      btn.textContent = "Sending...";
+
+      const formData = new FormData(form);
+      const responses = [];
+      for (const [key, value] of formData.entries()) {
+        responses.push({ question_key: key, response_text: String(value) });
+      }
+
+      try {
+        const res = await fetch(`${apiUrl}/survey`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ responses }),
+        });
+
+        if (res.ok) {
+          form.style.display = "none";
+          msg.textContent = "Thanks for your feedback!";
+          msg.style.display = "block";
+          msg.style.color = "#10b981";
+        } else {
+          msg.textContent = "Something went wrong. Please try again.";
+          msg.style.display = "block";
+          msg.style.color = "#ef4444";
+          btn.disabled = false;
+          btn.textContent = "Submit";
+        }
+      } catch {
+        msg.textContent = "Connection error. Please try again.";
+        msg.style.display = "block";
+        msg.style.color = "#ef4444";
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+    });
+  }
+</script>
