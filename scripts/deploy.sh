@@ -22,7 +22,7 @@ docker exec infra-nginx nginx -s reload
 
 echo "==> Health check..."
 for i in 1 2 3 4 5; do
-  if curl -sf http://localhost:3848/health > /dev/null 2>&1; then
+  if docker exec infra-nginx curl -sf http://cherrykit-api:3848/health > /dev/null 2>&1; then
     echo "    API is healthy!"
     break
   fi

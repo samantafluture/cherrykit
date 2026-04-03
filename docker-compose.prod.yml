@@ -12,7 +12,7 @@ services:
     networks:
       - infra-net
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3848/health"]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3848/health').then(r=>{process.exit(r.ok?0:1)}).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 5s
       retries: 3
