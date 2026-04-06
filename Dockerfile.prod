@@ -43,7 +43,8 @@ RUN pnpm add -D tsx
 RUN mkdir -p /app/data /app/dist
 
 # chown to 1001:1001 matching VPS host sam — docker-compose user: overrides USER
-RUN chown -R 1001:1001 /app/data /app/dist
+# Also fix corepack cache — built as root, needs to be readable by runtime UID
+RUN chown -R 1001:1001 /app/data /app/dist /.cache
 
 USER node
 
