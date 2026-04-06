@@ -7,6 +7,7 @@ services:
     container_name: cherrykit-api
     restart: unless-stopped
     env_file: .env
+    user: "1000:1000"  # match host sam (UID 1000) + node user in container
     volumes:
       - cherrykit_data:/app/data
     networks:

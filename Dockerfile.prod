@@ -42,6 +42,11 @@ RUN pnpm add -D tsx
 # Create data and dist directories
 RUN mkdir -p /app/data /app/dist
 
+# Non-root user — node (UID 1000:GID 1000) is built into the base image
+RUN chown -R node:node /app/data /app/dist
+
+USER node
+
 EXPOSE 3848
 
 CMD ["pnpm", "api"]
