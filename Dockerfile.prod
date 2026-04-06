@@ -27,7 +27,10 @@ RUN cd templates/landing && pnpm install --frozen-lockfile || pnpm install
 
 # Final image
 FROM node:22-alpine AS api
+
+ENV COREPACK_HOME=/app/.corepack
 RUN corepack enable && corepack prepare pnpm@10.27.0 --activate
+
 WORKDIR /app
 
 COPY --from=deps-prod /app/node_modules ./node_modules
@@ -43,8 +46,7 @@ RUN pnpm add -D tsx
 RUN mkdir -p /app/data /app/dist
 
 # chown to 1001:1001 matching VPS host sam — docker-compose user: overrides USER
-# Also fix corepack cache — built as root, needs to be readable by runtime UID
-RUN chown -R 1001:1001 /app/data /app/dist /.cache
+RUN chown -R 1001:1001 /app/data /app/dist /app/.corepack
 
 USER node
 
